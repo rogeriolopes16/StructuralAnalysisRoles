@@ -101,7 +101,10 @@ def createRoles(option,cr):
                     writers.writerow(['TYPE','MAIN OBJECT', 'SECONDARY OBJECT', 'RESULT'])
                     for lnot in list_not_exist_cal:
                         motive = 'Not exist in Blazon' if verified_access_out_blazon(lnot[1]) else 'Not found CAL or BLAZON'
-                        writers.writerow(['ACCESS ROLES', lnot[0], lnot[1], motive])
+                        if 'BANCO DE DADOS' in lnot[1]:
+                            writers.writerow(['CRITICAL ACCESS', lnot[0], lnot[1], motive])
+                        else:
+                            writers.writerow(['ACCESS ROLES', lnot[0], lnot[1], motive])
 
     print(f'Total of roles: {count_roles}') if count_roles > 0 and option == '1' else None
     print(f'Total of entitlements in the file: {count_rights}') if count_rights > 0 and option == '1' else None

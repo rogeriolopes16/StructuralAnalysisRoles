@@ -20,8 +20,8 @@ def structuralAnalysis(option, cr):
     for i in sorted(rd.readCSV('input')):
         for n in rd.readCSV('reportEntitlementsBlazon'):
             if i[2].strip() == n[1].strip() and n[9].strip() == 'true':
-                list_certifiable.append(['CERTIFIABLE ROLE', i[0], i[2], 'CERTIFIABLE'])
-                list_certifiable.append(['CRITICAL ROLE', i[0], i[2], 'CRITICAL'])
+                list_certifiable.append(['CERTIFIABLE ACCESS', i[0], i[2], 'CERTIFIABLE'])
+                list_certifiable.append(['CRITICAL ACCESS', i[0], i[2], 'CRITICAL'])
 
         if i[0].strip() != role_current and i[1].strip() != 'DESCRIPTION':
             role_current = i[0].strip()
