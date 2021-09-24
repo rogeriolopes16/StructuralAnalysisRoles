@@ -25,14 +25,17 @@ def structuralAnalysis(option, cr):
 
         if i[0].strip() != role_current and i[1].strip() != 'DESCRIPTION':
             role_current = i[0].strip()
-            list_owner.append([i[1].strip(),0,0]) if list_owner == [] else None
+            exist_owner = False
+
+            for lwz in list_owner:
+                if i[1].strip() == lwz[0]:
+                    exist_owner = True
+
+            list_owner.append([i[1].strip(),0,0]) if list_owner == [] or exist_owner == False else None
+
             for lw in list_owner:
                 if lw[0].strip() == i[1].strip():
                     lw[1] += 1
-                    total += 1
-                    break
-                else:
-                    list_owner.append([i[1].strip(),1,0])
                     total += 1
                     break
 
@@ -76,7 +79,7 @@ def structuralAnalysis(option, cr):
             writers.writerow([listSA[0], listSA[1], listSA[2], listSA[3]])
 
         for lw in list_owner:
-            writers.writerow(['OWNER ROLE', lw[0], lw[1], str(round((lw[1]/total)*100))+'%'])
+            writers.writerow(['OWNER ROLE', lw[0], lw[1], str(round((lw[1]/total)*100,2))+'%'])
             writers.writerow(['OWNER APPROVAL', lw[0], 'Number of Members', lw[2]])
 
         for lba in list_basic_access:
