@@ -50,6 +50,7 @@ def createRoles(option,cr):
     '''
     if not exist_create_roles or option == '3':
         not_exist_cal = None
+        removeFiles('output') if option == '1' else None  # remove all files *.csv from directory
 
         # loading informations of the db
         rolesBlazon = db.blazon(SELECT_ROLES)
@@ -57,6 +58,11 @@ def createRoles(option,cr):
         keyroleright = []
         for rr in db.blazon(SELECT_ROLE_RIGHT):
             keyroleright.append(rr[0])
+
+        list_csv_basic_access_in = sorted(rd.readCSV('basic_access'))
+        list_csv_basic_access = []
+        for lcsv in list_csv_basic_access_in:
+            list_csv_basic_access.append(lcsv[0])
 
         # create layout new role rights and write in the file
         with open(PAR_DIRECTORY_PROJ + '/output/Layout Criação de Objetos no Papel do CR ' + cr + '.csv', 'w', newline='',
@@ -69,7 +75,7 @@ def createRoles(option,cr):
                 roleId, role, resource, resourceId, entitlements, entitlementsIds = None, None, None, None, None, None
                 for m in rd.readCSV('mapping'):
                     if i[1].strip() != 'DESCRIPTION':
-                        if (str(i[2]).strip() in str(m[0]).strip() or str(i[2]) in str(m[0])) and verified_access_out_blazon(i[2].strip()) == False:
+                        if (str(i[2]).strip() in str(m[0].upper()).strip() or str(i[2]) in str(m[0].upper())) and verified_access_out_blazon(i[2].strip()) == False and (str(i[2]).strip() not in list_csv_basic_access and str(i[2]) not in list_csv_basic_access):
                             found_cal = True
                             # assign roles
                             for rol in rolesBlazon:
@@ -78,7 +84,7 @@ def createRoles(option,cr):
 
                             # search and assign resources and entitlements to variables
                             for ent in entitlementsBlazon:
-                                if m[1].strip() == ent[1].strip() and m[2].strip() == ent[3].strip():
+                                if m[1].upper().strip() == ent[1].upper().strip() and m[2].upper().strip() == ent[3].upper().strip():
                                     resource, resourceId, entitlements, entitlementsIds = ent[1], ent[0], ent[3], ent[2]
                             if resource != None and resourceId != None and entitlements != None and entitlementsIds != None \
                                     and (
