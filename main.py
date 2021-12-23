@@ -14,8 +14,9 @@ if __name__ == '__main__':
 
         if select == '1':
             cr = input('Informe o CR deste processo: ')
+            bdroles = input('CR com Banco de Dados (N/S): ')
             time_begin = time.time()
-            createRoles('1', cr)
+            createRoles('1', cr, bdroles)
             time_end = time.time()
         elif select == '2':
             time_begin = time.time()
@@ -24,7 +25,7 @@ if __name__ == '__main__':
         elif select == '3':
             cr = input('Informe o CR deste processo: ')
             time_begin = time.time()
-            structuralAnalysis('3', cr)
+            structuralAnalysis('3', cr, 'S')
             time_end = time.time()
         elif select == '4':
             time_begin = time.time()

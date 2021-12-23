@@ -7,6 +7,7 @@ from modules.functions import *
 rd = ReadCSC()
 
 def remove_access():
+    print('Processing Remove Access...')
     removeFiles('output')  # remove all files *.csv from directory
 
     list_current_user = []
@@ -31,4 +32,4 @@ def remove_access():
 
         for n_perfil in list_current_user:
             if ([str(n_perfil[3].strip().upper())+str(n_perfil[2].strip().upper())]) in list_access_cal:
-                writer.writerow([n_perfil[0], n_perfil[1], n_perfil[2], n_perfil[3]])
+                writer.writerow([n_perfil[0], n_perfil[1], n_perfil[2], n_perfil[3].upper()])

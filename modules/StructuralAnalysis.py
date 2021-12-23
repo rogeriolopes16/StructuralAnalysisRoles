@@ -7,8 +7,8 @@ from modules.CreateRoles import *
 rd = ReadCSC()
 db = GetDataBase()
 
-def structuralAnalysis(option, cr):
-    returnAS = createRoles(option, cr)
+def structuralAnalysis(option, cr, bdroles):
+    returnAS = createRoles(option, cr, bdroles)
     list_certifiable = []
     list_owner = []
     role_current = ''

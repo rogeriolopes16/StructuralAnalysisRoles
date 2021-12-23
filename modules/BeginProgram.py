@@ -7,4 +7,4 @@ def beginProgram():
     print('1 - Create Roles')
     print('2 - Base Mapping PRD x HML')
     print('3 - Structural Analysis')
-    print('4 - Removing Access')
+    print('4 - Remove Access')
